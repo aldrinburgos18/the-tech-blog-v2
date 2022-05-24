@@ -3,7 +3,6 @@ const Sequelize = require("sequelize");
 
 //use dotenv for db login credentials
 require("dotenv").config();
-console.log(process.env);
 
 //create connection to database
 const sequelize = new Sequelize(
