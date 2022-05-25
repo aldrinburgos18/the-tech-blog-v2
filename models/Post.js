@@ -11,12 +11,29 @@ Post.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    message: {
+      type: DataTypes.STRING(120),
+      allowNull: false,
+    },
+
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "user",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: "post",
   }
 );
+
+module.exports = Post;
