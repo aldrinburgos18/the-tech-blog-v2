@@ -15,7 +15,7 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    message: {
+    schweet: {
       type: DataTypes.STRING(120),
       allowNull: false,
     },
