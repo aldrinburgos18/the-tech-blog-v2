@@ -1,14 +1,32 @@
 const router = require("express").Router();
-const { Post, User } = require("../../models");
+const { Post, User, Upvote, Downvote } = require("../../models");
+const { sequelize } = require("../../models/User");
 
 router.get("/", (req, res) => {
   Post.findAll({
-    attributes: ["id", "title", "schweet", "created_at"],
+    attributes: [
+      "id",
+      "title",
+      "schweet",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM upvote WHERE post.id = upvote.post_id)"
+        ),
+        "upvote_count",
+      ],
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM downvote WHERE post.id = downvote.post_id)"
+        ),
+        "downvote_count",
+      ],
+    ],
     order: [["created_at", "DESC"]],
     include: [
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["username", "id"],
       },
     ],
   })
@@ -24,11 +42,28 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "title", "schweet", "created_at"],
+    attributes: [
+      "id",
+      "title",
+      "schweet",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM upvote WHERE post.id = upvote.post_id)"
+        ),
+        "upvote_count",
+      ],
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM downvote WHERE post.id = downvote.post_id)"
+        ),
+        "downvote_count",
+      ],
+    ],
     include: [
       {
         model: User,
-        attributes: ["username"],
+        attributes: ["username", "id"],
       },
     ],
   })
@@ -42,6 +77,39 @@ router.get("/:id", (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
+    });
+});
+
+router.post("/", (req, res) => {
+  Post.create({
+    title: req.body.title,
+    schweet: req.body.schweet,
+    user_id: req.body.user_id,
+  })
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.put("/upvote", (req, res) => {
+  //custom static method
+  Post.upvote(req.body, { Upvote })
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
+router.put("/downvote", (req, res) => {
+  //custom static method
+  Post.downvote(req.body, { Downvote })
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
     });
 });
 
@@ -64,19 +132,6 @@ router.put("/:id", (req, res) => {
       }
       res.json(dbPostData);
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-router.post("/", (req, res) => {
-  Post.create({
-    title: req.body.title,
-    schweet: req.body.schweet,
-    user_id: req.body.user_id,
-  })
-    .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
