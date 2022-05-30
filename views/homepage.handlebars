@@ -1,1 +1,20 @@
-<div>You are on the homepage.</div>
+<div class="mx-auto mt-4" style="width: 80%">
+  <h4>Welcome, aldrinburgos18!</h4>
+  {{#each posts}}
+<div class="card border-dark mt-3 mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    <p class="card-text">{{schweet}}</p>
+    <div class="row">
+        <div class="col-8">
+          <a class="link-dark" href="/post/{{id}}">{{comments.length}} comments </a>
+          </div>
+        <div class="col-4 text-end">{{upvote_count}} upvotes | {{downvote_count}} downvotes</div> 
+    </div>
+  </div>
+  <div class="card-footer text-black-50">
+    Posted by: <a class="link-dark" href="/user/{{user.id}}">{{user.username}}</a> 
+  </div>
+</div>
+{{/each}}
+</div>
