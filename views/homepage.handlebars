@@ -2,14 +2,19 @@
   <h4>Welcome, aldrinburgos18!</h4>
   {{#each posts}}
 <div class="card border-dark mt-3 mb-3">
-  <div class="card-body">
+  <div class="card-body pt-0 pe-0">
+    <div class="d-flex justify-content-end">
+      <p class="fst-italic pe-1 text-black-50">Mon May 30 2022</p>
+    </div>
     <h5 class="card-title">{{title}}</h5>
-    <p class="card-text">{{schweet}}</p>
+    <p class="card-text">{{coconut}}</p>
     <div class="row">
         <div class="col-8">
           <a class="link-dark" href="/post/{{id}}">{{comments.length}} comments </a>
           </div>
-        <div class="col-4 text-end">{{upvote_count}} upvotes | {{downvote_count}} downvotes</div> 
+        <div class="col-4 text-end">
+          <p class="mb-0 pe-2">❤️{{upvote_count}} coco-ros | 👎{{downvote_count}} </p>
+        </div> 
     </div>
   </div>
   <div class="card-footer text-black-50">

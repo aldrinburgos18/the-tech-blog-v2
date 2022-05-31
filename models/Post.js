@@ -14,7 +14,7 @@ class Post extends Model {
         attributes: [
           "id",
           "title",
-          "schweet",
+          "coconut",
           "created_at",
           [
             sequelize.literal(
@@ -39,7 +39,7 @@ class Post extends Model {
         attributes: [
           "id",
           "title",
-          "schweet",
+          "coconut",
           "created_at",
           [
             sequelize.literal(
@@ -65,7 +65,7 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    schweet: {
+    coconut: {
       type: DataTypes.STRING(120),
       allowNull: false,
     },

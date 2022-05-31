@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     attributes: [
       "id",
       "title",
-      "schweet",
+      "coconut",
       "created_at",
       [
         sequelize.literal(
@@ -51,7 +51,7 @@ router.get("/:id", (req, res) => {
     attributes: [
       "id",
       "title",
-      "schweet",
+      "coconut",
       "created_at",
       [
         sequelize.literal(
@@ -95,7 +95,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   Post.create({
     title: req.body.title,
-    schweet: req.body.schweet,
+    coconut: req.body.coconut,
     user_id: req.body.user_id,
   })
     .then((dbPostData) => res.json(dbPostData))
@@ -129,7 +129,7 @@ router.put("/:id", (req, res) => {
   Post.update(
     {
       title: req.body.title,
-      schweet: req.body.schweet,
+      coconut: req.body.coconut,
     },
     {
       where: {
@@ -158,7 +158,7 @@ router.delete("/:id", (req, res) => {
   })
     .then((dbPostData) => {
       if (!dbPostData) {
-        res.status(404).json({ message: "No schweet found with that ID!" });
+        res.status(404).json({ message: "No coconuts found with that ID!" });
         return;
       }
       res.json(dbPostData);
