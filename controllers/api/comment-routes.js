@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
       {
         model: User,
         as: "commenter",
-        attributes: ["username", "id"],
+        attributes: ["firstname", "lastname", "username", "id"],
       },
     ],
   })
