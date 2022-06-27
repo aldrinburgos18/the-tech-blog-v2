@@ -1,5 +1,6 @@
 async function loginFormHandler(event) {
   event.preventDefault();
+  console.log("clicked");
 
   const email = document.querySelector("#email").value.trim();
   const password = document.querySelector("#password").value.trim();
@@ -19,6 +20,8 @@ async function loginFormHandler(event) {
     } else {
       alert(response.statusText);
     }
+  } else {
+    alert("Please enter email and password!");
   }
 }
 

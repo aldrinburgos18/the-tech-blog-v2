@@ -49,7 +49,12 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  console.log(req.session.loggedIn);
   res.render("login");
+});
+
+router.get("/register", (req, res) => {
+  res.render("register");
 });
 
 module.exports = router;

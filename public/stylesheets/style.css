@@ -1,5 +1,29 @@
+.varela {
+    font-family: 'Varela Round', sans-serif;
+}
+
 body {
-    min-height: 100vh;
+    background-color:#BBBDF6 !important; 
+}
+
+.fill {
+   flex-grow: 1;
+   position: relative;
+}
+
+.login-form p {
+    color:#797A9E;
+}
+
+.login-form a {
+    color: #797A9E;
+    text-decoration: none;
+}
+
+.login-form a:hover {
+    color:#797A9E; 
+    text-decoration:underline; 
+    cursor:pointer;  
 }
 
 .login-div {
@@ -7,3 +31,29 @@ body {
     height: 100%;
     width: 80%;
 }
+
+input {
+    color: white;
+    -webkit-text-fill-color: white;
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+}
+
+
+input.login-input::placeholder {
+    font-family: 'Varela Round', sans-serif;
+    font-size: medium;
+}
+
+input.login-input, input.login-input:focus {
+    background-color: #797A9E;
+    border-radius: 15px;
+}
+
+.form-button {
+    background-color: #797A9E !important;
+    color: white !important;
+    width: 40%;
+    border-radius: 15px !important;
+}
+
