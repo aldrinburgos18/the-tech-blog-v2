@@ -1,6 +1,5 @@
 async function loginFormHandler(event) {
   event.preventDefault();
-  console.log("clicked");
 
   const email = document.querySelector("#email").value.trim();
   const password = document.querySelector("#password").value.trim();
@@ -16,7 +15,7 @@ async function loginFormHandler(event) {
     });
 
     if (response.ok) {
-      alert("Logged in successfully.");
+      document.location.replace("/");
     } else {
       alert(response.statusText);
     }
@@ -26,5 +25,5 @@ async function loginFormHandler(event) {
 }
 
 document
-  .querySelector(".login-form")
+  .querySelector(".user-form")
   .addEventListener("submit", loginFormHandler);

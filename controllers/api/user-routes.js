@@ -70,6 +70,8 @@ router.post("/", (req, res) => {
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
+        req.session.firstname = dbUserData.firstname;
+        req.session.lastname = dbUserData.lastname;
         req.session.loggedIn = true;
 
         res.json(dbUserData);
@@ -102,11 +104,24 @@ router.post("/login", (req, res) => {
     req.session.save(() => {
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
+      req.session.firstname = dbUserData.firstname;
+      req.session.lastname = dbUserData.lastname;
       req.session.loggedIn = true;
-    });
 
-    res.json({ message: "You are now logged in!", user: dbUserData });
+      res.json({ message: "You are now logged in!", user: dbUserData });
+    });
   });
+});
+
+//logout a user
+router.post("/logout", (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end;
+  }
 });
 
 //Update a user

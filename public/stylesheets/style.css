@@ -11,16 +11,16 @@ body {
    position: relative;
 }
 
-.login-form p {
+.user-form p {
     color:#797A9E;
 }
 
-.login-form a {
+.user-form a {
     color: #797A9E;
     text-decoration: none;
 }
 
-.login-form a:hover {
+.user-form a:hover {
     color:#797A9E; 
     text-decoration:underline; 
     cursor:pointer;  
@@ -39,15 +39,22 @@ input {
     text-align: center;
 }
 
-
-input.login-input::placeholder {
+input:-webkit-autofill,
+input:-webkit-autofill::first-line,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow:0 0 0 50px #797A9E inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: white;
     font-family: 'Varela Round', sans-serif;
-    font-size: medium;
 }
 
-input.login-input, input.login-input:focus {
+
+input.user-input, input.user-input:focus, input.user-input::placeholder {
     background-color: #797A9E;
     border-radius: 15px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: medium;
 }
 
 .form-button {

@@ -5,6 +5,7 @@ const { Post, User, Comment } = require("../models");
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
+  console.log(req.session);
   Post.findAll({
     attributes: [
       "id",
@@ -34,7 +35,7 @@ router.get("/", (req, res) => {
       },
       {
         model: User,
-        attributes: ["username", "id"],
+        attributes: ["firstname", "lastname", "username", "id"],
       },
     ],
   })
@@ -49,11 +50,20 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  console.log(req.session.loggedIn);
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+
   res.render("login");
 });
 
 router.get("/register", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+
   res.render("register");
 });
 
