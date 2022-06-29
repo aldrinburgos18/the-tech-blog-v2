@@ -23,6 +23,7 @@ async function signupFormHandler(event) {
     //check response status
     if (response.ok) {
       alert("User created successfully.");
+      document.location.replace("/");
     } else {
       alert(response.statusText);
     }

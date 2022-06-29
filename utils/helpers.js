@@ -1,4 +1,4 @@
-var days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+var days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
 
 var months = [
   "Jan",

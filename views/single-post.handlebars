@@ -1,12 +1,53 @@
-<article class="post">
-  <div class="title">
-    <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
-    <span>({{post.post_url}})</span>
-  </div>
-  <div class="meta">
-    {{post.vote_count}} point(s) by {{post.user.username}} on
-    {{post.created_at}}
-    |
-    <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
-  </div>
-</article>
+<div class="mx-auto container-fluid pt-4 ps-2 flex-fill" style="width: 80%;background-color: #9893DA;">
+    <div class="container-fluid m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 d-flex justify-content-end m-0 p-0">
+                <button class="btn">← Back</button>
+            </div>
+        </div>
+        <div>
+            <h3 class="varela">Post by: {{post.user.username}} ({{post.user.firstname}} {{post.user.lastname}})</h3>
+        </div>
+    </div>
+    
+    <div class="mx-auto card border-dark mt-3 mb-3">
+        <div class="card-body pt-0 pe-0">
+            <div class="d-flex justify-content-end">
+                <p class="fst-italic pe-1 text-black-50">{{format_date post.created_at}}</p>
+            </div>
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.coconut}}</p>
+            <div class="row">
+            <div class="col-12 text-end">
+                <p class="mb-0 pe-2">❤️{{post.upvote_count}} coco-ros | 👎{{post.downvote_count}} </p>
+            </div> 
+            </div>
+        </div>
+    </div>
+    <h5 class="varela">{{comments.length}} comment(s):</h5>
+    {{#each comments}}
+        <div class="card my-1 mx-2">
+            <div class="card-header">
+                Comment by: {{commenter.username}} ({{commenter.firstname}} {{commenter.lastname}}) on {{format_date created_at}}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{comment_text}}</p>
+            </div>
+        </div>
+    {{/each}}
+    <form class="form-group container-fluid m-0 p-0">
+        <div class="form-group m-0 p-0">
+            <div class="row mx-2 p-0">
+                <div class="col-12 m-0 p-0">
+                    <textarea class="form-control" id="comment-form" rows="3" placeholder="Write a comment..."></textarea>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/js/single-post.js"></script>
