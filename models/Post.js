@@ -66,7 +66,7 @@ Post.init(
       allowNull: false,
     },
     coconut: {
-      type: DataTypes.STRING(120),
+      type: DataTypes.STRING,
       allowNull: false,
     },
 

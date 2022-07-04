@@ -1,11 +1,10 @@
 const { sequelize } = require("../models/User");
 
-const { Post, User, Comment } = require("../models");
+const { Post, User, Comment, Upvote, Downvote } = require("../models");
 
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-  console.log(req.session.loggedIn);
   if (req.session.loggedIn) {
     Post.findAll({
       attributes: [
@@ -96,12 +95,48 @@ router.get("/post/:id", (req, res) => {
       //serialize the data
       const post = dbPostData.get({ plain: true });
       var comments = post.comments;
-      res.render("single-post", { post, comments });
+      const loggedInId = req.session.user_id;
+      res.render("single-post", { post, comments, loggedInId });
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
+});
+
+router.get("/user/:id", (req, res) => {
+  User.findOne({
+    attributes: { exclude: ["password"] },
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: Post,
+        order: [["created_at", "DESC"]],
+        attributes: ["id", "title", "coconut", "created_at"],
+      },
+      {
+        model: Comment,
+        as: "comments",
+        order: [["created_at", "DESC"]],
+        attributes: ["id", "comment_text", "created_at"],
+        include: {
+          model: Post,
+          attributes: ["title"],
+        },
+      },
+      {
+        model: Post,
+        attributes: ["title"],
+        through: Upvote,
+        as: "upvoted_posts",
+      },
+    ],
+  }).then((dbPostData) => {
+    console.log(dbPostData);
+  });
+  res.render("user");
 });
 
 router.get("/login", (req, res) => {

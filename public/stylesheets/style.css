@@ -6,6 +6,10 @@ body {
     background-color:#BBBDF6 !important; 
 }
 
+.hidden {
+    display:none;
+}
+
 .fill {
    flex-grow: 1;
    position: relative;
@@ -57,10 +61,35 @@ input.user-input, input.user-input:focus, input.user-input::placeholder {
     font-size: medium;
 }
 
+.edit-post input {
+    color: black;
+    -webkit-text-fill-color: black;
+    text-align: left;
+    font-size: large;
+    font-weight: bold;
+    width: 50%;
+}
+
+#edit-post-content {
+    color: black;
+    -webkit-text-fill-color: black;
+    text-align: left;
+    width: 100%;
+    resize: none;
+}
+
+.edit-form-button {
+    background-color: white !important;
+    color: #625F63 !important; 
+    width: 20%;
+    border-radius: 12.8px !important;
+}
+
+
 .form-button {
     background-color: #797A9E !important;
     color: white !important;
     width: 40%;
-    border-radius: 15px !important;
+    border-radius: 12.8px !important;
 }
 
