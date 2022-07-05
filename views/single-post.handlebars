@@ -2,20 +2,13 @@
     <div class="container-fluid m-0 p-0">
         <div class="row m-0 p-0">
             <div class="col-12 d-flex justify-content-end m-0 p-0">
-                <button class="btn">← Back</button>
+                <button class="btn" onclick="history.back()">← Back</button>
             </div>
         </div>
         <div>
             <h3 class="varela">Posted by {{post.user.username}} ({{post.user.firstname}} {{post.user.lastname}})</h3>
         </div>
     </div>
-    <div class="dropdown">
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-    <li><button class="dropdown-item" type="button">Action</button></li>
-    <li><button class="dropdown-item" type="button">Another action</button></li>
-    <li><button class="dropdown-item" type="button">Something else here</button></li>
-  </ul>
-</div>
     <div class="mx-auto card border-dark mt-3 mb-0" data-user-id="{{post.user.id}}" id="user-post">
         <div class="card-body pt-0 pe-0">
             <div class="d-flex justify-content-end">
@@ -37,7 +30,8 @@
     {{#each comments}}
         <div class="card my-1 mx-2">
             <div class="card-header">
-                Comment by: {{commenter.username}} ({{commenter.firstname}} {{commenter.lastname}}) on {{format_date created_at}}
+                Comment by: <a class="link-dark" href="/user/{{commenter.id}}">{{commenter.username}} ({{commenter.firstname}} {{commenter.lastname}})</a> on {{format_date created_at}}
+            
             </div>
             <div class="card-body">
                 <p class="card-text">{{comment_text}}</p>
@@ -48,7 +42,7 @@
         <div class="form-group m-0 p-0">
             <div class="row mx-2 p-0">
                 <div class="col-12 mx-0 mt-0 mb-4 p-0">
-                    <textarea class="form-control" id="comment-form" rows="3" placeholder="Write a comment..."></textarea>
+                    <textarea class="form-control" id="comment-form" rows="3" placeholder="Write a comment..." style="resize: none;"></textarea>
                 </div>
             </div>
         </div>

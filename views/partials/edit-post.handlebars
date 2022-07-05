@@ -8,9 +8,13 @@
                 <textarea class="my-2" name="edit-post-content" id= "edit-post-content" rows="4">{{this.coconut}}</textarea>
             </div>
             <div class="row">
-            <div class="col-12 text-end">
-                <p class="mb-0 pe-2">❤️{{this.upvote_count}} coco-ros | 👎{{this.downvote_count}} </p>
-            </div> 
+                <div class="col-4">
+                    <button class="btn btn-sm save-button" id="save-edit">Save</button>
+                    <button class="btn btn-sm btn-danger cancel-button" id="cancel-edit">Cancel</button>
+                </div> 
+                <div class="col-8 text-end">
+                    <p class="mb-0 pe-2">❤️{{this.upvote_count}} coco-ros | 👎{{this.downvote_count}} </p>
+                </div> 
             </div>
         </form>
 </div>

@@ -1,5 +1,6 @@
 const commentForm = document.getElementById("comment-form");
 const editButton = document.getElementById("edit-post");
+const saveButton = document.getElementById("save-edit");
 
 async function submitOnEnter(event) {
   if (event.which === 13 && !event.shiftKey) {
@@ -52,25 +53,22 @@ async function editPostContent() {
   }
 }
 
-function showEditForm() {
+function showEditForm(event) {
   const editForm = document.getElementById("edit-form");
+  const editButtonEl = document.getElementById("edit-button");
   const postEl = document.getElementById("user-post");
-  console.log(editButton.value);
   if (editButton.value == "off") {
     editForm.removeAttribute("hidden");
     postEl.setAttribute("hidden", true);
+    editButtonEl.setAttribute("hidden", true);
     editButton.setAttribute("value", "on");
-    editButton.classList.add("edit-form-button", "mt-2");
-    editButton.innerText = "save";
   } else {
     editForm.setAttribute("hidden", true);
     postEl.removeAttribute("hidden");
     editButton.setAttribute("value", "off");
-    editPostContent();
-    editButton.classList.remove("edit-form-button", "mt-2");
-    editButton.innerText = "Edit post";
   }
 }
 
 commentForm.addEventListener("keypress", submitOnEnter);
 editButton.addEventListener("click", showEditForm);
+cancelButton.addEventListener("click", showEditForm);

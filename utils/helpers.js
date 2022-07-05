@@ -33,9 +33,19 @@ module.exports = {
   },
   showPostOwnerOptions: (loggedInId, postedById) => {
     if (loggedInId === postedById) {
-      return `<div class="d-flex justify-content-end">
-      <button class="btn fst-italic m-0 p-0" id="edit-post" value="off">Edit post</p>
-  </div>`;
+      return `
+      <div class="d-flex justify-content-end">
+        <div id="edit-button">
+          <button class="btn fst-italic m-0 p-0" id="edit-post" value="off">
+            <i class="oi oi-pencil"></i>
+            Edit post
+          </button>&nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <button class="btn fst-italic m-0 p-0" id="delete-post">
+          <i class="oi oi-trash"></i>
+          Delete post
+        </button>
+      </div>`;
     }
   },
 };

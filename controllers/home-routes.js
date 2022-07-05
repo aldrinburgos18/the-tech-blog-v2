@@ -1,6 +1,6 @@
 const { sequelize } = require("../models/User");
 
-const { Post, User, Comment, Upvote, Downvote } = require("../models");
+const { Post, User, Comment } = require("../models");
 
 const router = require("express").Router();
 
@@ -106,7 +106,7 @@ router.get("/post/:id", (req, res) => {
 
 router.get("/user/:id", (req, res) => {
   User.findOne({
-    attributes: { exclude: ["password"] },
+    attributes: { exclude: ["password", "email"] },
     where: {
       id: req.params.id,
     },
@@ -114,29 +114,46 @@ router.get("/user/:id", (req, res) => {
       {
         model: Post,
         order: [["created_at", "DESC"]],
-        attributes: ["id", "title", "coconut", "created_at"],
+        separate: true,
+        attributes: [
+          "id",
+          "title",
+          "coconut",
+          "created_at",
+          [
+            sequelize.literal(
+              "(SELECT COUNT(*) FROM upvote WHERE post.id = upvote.post_id)"
+            ),
+            "upvote_count",
+          ],
+          [
+            sequelize.literal(
+              "(SELECT COUNT(*) FROM downvote WHERE post.id = downvote.post_id)"
+            ),
+            "downvote_count",
+          ],
+        ],
+        include: {
+          model: Comment,
+          attributes: ["id"],
+        },
       },
       {
         model: Comment,
         as: "comments",
         order: [["created_at", "DESC"]],
-        attributes: ["id", "comment_text", "created_at"],
-        include: {
-          model: Post,
-          attributes: ["title"],
-        },
-      },
-      {
-        model: Post,
-        attributes: ["title"],
-        through: Upvote,
-        as: "upvoted_posts",
+        attributes: ["id"],
       },
     ],
-  }).then((dbPostData) => {
-    console.log(dbPostData);
-  });
-  res.render("user");
+  })
+    .then((dbPostData) => {
+      const user = dbPostData.get({ plain: true });
+      res.render("user", { user });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/login", (req, res) => {
