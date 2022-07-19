@@ -1,6 +1,6 @@
 const { sequelize } = require("../models/User");
 
-const { Post, User, Comment } = require("../models");
+const { Post, User, Comment, Upvote, Downvote } = require("../models");
 
 const router = require("express").Router();
 
@@ -34,12 +34,33 @@ router.get("/", (req, res) => {
           model: User,
           attributes: ["firstname", "lastname", "username", "id"],
         },
+        {
+          model: Upvote,
+          where: {
+            user_id: req.session.user_id,
+          },
+          attributes: ["id", "user_id"],
+          separate: true,
+        },
+        {
+          model: Downvote,
+          where: {
+            user_id: req.session.user_id,
+          },
+          attributes: ["id", "user_id"],
+          separate: true,
+        },
       ],
     })
       .then((dbPostData) => {
         const posts = dbPostData.map((post) => post.get({ plain: true }));
         const username = req.session.username;
-        res.render("homepage", { posts, username });
+        const loggedInId = req.session.user_id;
+        res.render("homepage", {
+          posts,
+          username,
+          loggedInId,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -154,6 +175,15 @@ router.get("/user/:id", (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
+});
+
+router.get("/create-post", (req, res) => {
+  if (req.session.loggedIn) {
+    res.render("create-post");
+    return;
+  }
+
+  res.redirect("/");
 });
 
 router.get("/login", (req, res) => {

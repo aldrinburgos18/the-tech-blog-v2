@@ -53,7 +53,7 @@ async function editPostContent() {
   }
 }
 
-function showEditForm(event) {
+function showEditForm() {
   const editForm = document.getElementById("edit-form");
   const editButtonEl = document.getElementById("edit-button");
   const postEl = document.getElementById("user-post");
@@ -71,4 +71,4 @@ function showEditForm(event) {
 
 commentForm.addEventListener("keypress", submitOnEnter);
 editButton.addEventListener("click", showEditForm);
-cancelButton.addEventListener("click", showEditForm);
+saveButton.addEventListener("click", editPostContent);

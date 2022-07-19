@@ -1,3 +1,5 @@
+const { upvote } = require("../models/Post");
+
 var days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
 
 var months = [

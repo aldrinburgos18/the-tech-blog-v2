@@ -107,23 +107,27 @@ router.post("/", (req, res) => {
 });
 
 router.put("/upvote", (req, res) => {
-  //custom static method
-  Post.upvote(req.body, { Upvote })
-    .then((dbPostData) => res.json(dbPostData))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  if (req.session) {
+    //custom static method
+    Post.upvote({ ...req.body, user_id: req.session.user_id }, { Upvote })
+      .then((dbPostData) => res.json(dbPostData))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  }
 });
 
 router.put("/downvote", (req, res) => {
-  //custom static method
-  Post.downvote(req.body, { Downvote })
-    .then((dbPostData) => res.json(dbPostData))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  if (req.session) {
+    //custom static method
+    Post.downvote({ ...req.body, user_id: req.session.user_id }, { Downvote })
+      .then((dbPostData) => res.json(dbPostData))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  }
 });
 
 router.put("/:id", (req, res) => {
@@ -163,6 +167,44 @@ router.delete("/:id", (req, res) => {
         return;
       }
       res.json(dbPostData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/upvote/:id", (req, res) => {
+  Upvote.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbVoteData) => {
+      if (!dbVoteData) {
+        res.status(404).json({ message: "No upvote found with that ID!" });
+        return;
+      }
+      res.json(dbVoteData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/downvote/:id", (req, res) => {
+  Downvote.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbVoteData) => {
+      if (!dbVoteData) {
+        res.status(404).json({ message: "No downvote found with that ID!" });
+        return;
+      }
+      res.json(dbVoteData);
     })
     .catch((err) => {
       console.log(err);

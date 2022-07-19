@@ -36,6 +36,40 @@ body {
     width: 80%;
 }
 
+.btn-outline-purple {
+    color: #9893DA !important;
+    border-color: #9893DA !important;
+}
+
+.btn-outline-purple:hover {
+    color: white !important;
+    border-color: #9893DA !important;
+    background-color: #9893DA !important;
+}
+
+.selected-outline-purple {
+    color: white !important;
+    border-color: #9893DA !important;
+    background-color: #9893DA !important;
+}
+
+.selected-outline-purple:hover {
+    color: #9893DA !important;
+    border-color: #9893DA !important;
+    background-color: white !important;
+}
+
+.selected-outline-danger {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.selected-outline-danger:hover {
+    color: #dc3545 !important;
+    background-color: #fff !important;
+}
+
 input {
     color: white;
     -webkit-text-fill-color: white;
