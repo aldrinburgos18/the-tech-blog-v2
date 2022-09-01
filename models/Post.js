@@ -76,6 +76,7 @@ Post.init(
         model: "user",
         key: "id",
       },
+      allowNull: false,
     },
   },
   {

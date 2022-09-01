@@ -60,6 +60,7 @@ router.get("/", (req, res) => {
           posts,
           username,
           loggedInId,
+          loggedIn: req.session.loggedIn,
         });
       })
       .catch((err) => {
@@ -117,7 +118,12 @@ router.get("/post/:id", (req, res) => {
       const post = dbPostData.get({ plain: true });
       var comments = post.comments;
       const loggedInId = req.session.user_id;
-      res.render("single-post", { post, comments, loggedInId });
+      res.render("single-post", {
+        post,
+        comments,
+        loggedInId,
+        loggedIn: req.session.loggedIn,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -169,7 +175,7 @@ router.get("/user/:id", (req, res) => {
   })
     .then((dbPostData) => {
       const user = dbPostData.get({ plain: true });
-      res.render("user", { user });
+      res.render("user", { user, loggedIn: req.session.loggedIn });
     })
     .catch((err) => {
       console.log(err);
@@ -179,7 +185,7 @@ router.get("/user/:id", (req, res) => {
 
 router.get("/create-post", (req, res) => {
   if (req.session.loggedIn) {
-    res.render("create-post");
+    res.render("create-post", { loggedIn: req.session.loggedIn });
     return;
   }
 
@@ -202,6 +208,63 @@ router.get("/register", (req, res) => {
   }
 
   res.render("register");
+});
+
+router.get("/dashboard", (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect("/login");
+    return;
+  }
+
+  User.findOne({
+    attributes: { exclude: ["password", "email"] },
+    where: {
+      id: req.session.user_id,
+    },
+    include: [
+      {
+        model: Post,
+        order: [["created_at", "DESC"]],
+        separate: true,
+        attributes: [
+          "id",
+          "title",
+          "coconut",
+          "created_at",
+          [
+            sequelize.literal(
+              "(SELECT COUNT(*) FROM upvote WHERE post.id = upvote.post_id)"
+            ),
+            "upvote_count",
+          ],
+          [
+            sequelize.literal(
+              "(SELECT COUNT(*) FROM downvote WHERE post.id = downvote.post_id)"
+            ),
+            "downvote_count",
+          ],
+        ],
+        include: {
+          model: Comment,
+          attributes: ["id"],
+        },
+      },
+      {
+        model: Comment,
+        as: "comments",
+        order: [["created_at", "DESC"]],
+        attributes: ["id"],
+      },
+    ],
+  })
+    .then((dbPostData) => {
+      const user = dbPostData.get({ plain: true });
+      res.render("dashboard", { user, loggedIn: req.session.loggedIn });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

@@ -1,6 +1,8 @@
 const commentForm = document.getElementById("comment-form");
 const editButton = document.getElementById("edit-post");
 const saveButton = document.getElementById("save-edit");
+const cancelButton = document.getElementById("cancel-edit");
+const deleteButton = document.getElementById("delete-post-btn");
 
 async function submitOnEnter(event) {
   if (event.which === 13 && !event.shiftKey) {
@@ -69,6 +71,29 @@ function showEditForm() {
   }
 }
 
+function cancel(e) {
+  e.preventDefault();
+  document.location.reload();
+}
+
+async function deletePost() {
+  const post_id = window.location.toString().split("/")[
+    window.location.toString().split("/").length - 1
+  ];
+  const response = await fetch(`/api/posts/${post_id}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    alert("Post deleted successfully.");
+    document.location.replace("/");
+  } else {
+    alert(response.statusText);
+  }
+}
+
 commentForm.addEventListener("keypress", submitOnEnter);
 editButton.addEventListener("click", showEditForm);
 saveButton.addEventListener("click", editPostContent);
+cancelButton.addEventListener("click", cancel);
+deleteButton.addEventListener("click", deletePost);

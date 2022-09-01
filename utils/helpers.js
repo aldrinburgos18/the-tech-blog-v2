@@ -1,6 +1,4 @@
-const { upvote } = require("../models/Post");
-
-var days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 var months = [
   "Jan",
@@ -43,7 +41,7 @@ module.exports = {
             Edit post
           </button>&nbsp;&nbsp;|&nbsp;&nbsp;
         </div>
-        <button class="btn fst-italic m-0 p-0" id="delete-post">
+        <button class="btn fst-italic m-0 p-0" id="delete-post-btn">
           <i class="oi oi-trash"></i>
           Delete post
         </button>

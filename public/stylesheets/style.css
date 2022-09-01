@@ -95,7 +95,7 @@ input.user-input, input.user-input:focus, input.user-input::placeholder {
     font-size: medium;
 }
 
-.edit-post input {
+.edit-post input, .create-post input {
     color: black;
     -webkit-text-fill-color: black;
     text-align: left;
@@ -104,7 +104,7 @@ input.user-input, input.user-input:focus, input.user-input::placeholder {
     width: 50%;
 }
 
-#edit-post-content {
+#edit-post-content, #post-content {
     color: black;
     -webkit-text-fill-color: black;
     text-align: left;

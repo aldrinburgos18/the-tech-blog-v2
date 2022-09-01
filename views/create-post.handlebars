@@ -1,5 +1,21 @@
 <div class="mx-auto container-fluid pt-4 ps-2 flex-fill" style="width: 80%;background-color: #9893DA;">
-    <div class="container-fluid m-0 p-0">
-        
+    <h3>Create a new post:</h3>
+    <div class="mx-auto card border-dark mt-3 mb-0 create-post" id="edit-form">
+        <form class="card-body pt-0 pe-0">
+            <div class="m-0 p-0 me-3">
+                <h5 class="mb-0 mt-2">Post Title:</h5>
+                <input type="text" class="mb-2" name="post-title" id = "post-title" autocomplete="off"></input>
+                <h5 class="mb-0 mt-2">Post Content:</h5>
+                <textarea class="mb-2 mt-0" name="post-content" id= "post-content" rows="4">{{this.coconut}}</textarea>
+            </div>
+            <div class="row me-2">
+                <div class="col-12 text-end">
+                    <button class="btn btn-sm save-button" id="save-post">Save</button>
+                    <button class="btn btn-sm btn-danger cancel-button" id="cancel-post">Cancel</button>
+                </div> 
+            </div>
+        </form>
     </div>
 </div>
+
+<script src="./js/create-post.js"></script>

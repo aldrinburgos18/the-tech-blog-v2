@@ -1,3 +1,11 @@
+function home() {
+  document.location.replace("/");
+}
+
+function dashboard() {
+  document.location.replace("/dashboard");
+}
+
 async function logout() {
   const response = await fetch("/api/users/logout", {
     method: "POST",
@@ -11,4 +19,6 @@ async function logout() {
   }
 }
 
+document.querySelector("#home").addEventListener("click", home);
+document.querySelector("#dashboard").addEventListener("click", dashboard);
 document.querySelector("#logout").addEventListener("click", logout);

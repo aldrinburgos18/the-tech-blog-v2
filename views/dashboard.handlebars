@@ -1,0 +1,38 @@
+<div class="mx-auto container-fluid pt-4 ps-2 flex-fill" style="width: 80%;background-color: #9893DA;">
+    <div class="container-fluid m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 d-flex justify-content-end m-0 p-0">
+                <a href="create-post" class="link-dark"><i class="oi oi-plus"></i> Create a new post</a>
+            </div>
+        </div>
+        {{#if user.posts}}
+        <div>
+            <h3 class="varela">Posts by you ({{user.username}}):</h3>
+        </div>
+        {{else}}
+        <div>
+            <h3 class="varela">You haven't posted anything yet.</h3>
+        </div>
+        {{/if}}
+    </div>
+    {{#each user.posts}}
+    <div class="mx-auto card border-dark mt-3 mb-0" id="user-post">
+        <div class="card-body pt-0 pe-0">
+            <div class="d-flex justify-content-end">
+                <p class="fst-italic pe-1 text-black-50">{{format_date created_at}}</p>
+            </div>
+            <h5 class="card-title" id="post-title">{{title}}</h5>
+            <p class="card-text" id="post-content">{{coconut}}</p>
+            <div class="row">
+                <div class="col-8">
+                    <a class="link-dark" href="/post/{{id}}">{{comments.length}} comments </a>
+                </div>
+                <div class="col-4 text-end">
+                    <p class="mb-0 pe-2">❤️{{upvote_count}} coco-ros | 👎{{downvote_count}} </p>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    {{/each}}
+</div>

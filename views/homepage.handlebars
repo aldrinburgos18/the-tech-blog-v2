@@ -1,6 +1,13 @@
 <div class="mx-auto container-fluid pt-4 ps-2 flex-fill" style="width: 80%;background-color: #9893DA;" id="page-content">
-  <h4>Hello, {{username}}!</h4>
   
+  <div class="row">
+        <div class="col-8">
+          <h4>Hello, {{username}}!</h4>
+        </div>
+        <div class="col-4 text-end">
+          <a href="create-post" class="link-dark"><i class="oi oi-plus"></i> Create a new post</a>
+        </div>
+  </div>
   {{#each posts}}
 <div class="mx-auto card border-dark mt-3 mb-3" style="width: 95%;">
   <div class="card-body pt-0 pe-0">
@@ -13,7 +20,7 @@
         <div class="col-8">
           <a class="link-dark" href="/post/{{id}}">{{comments.length}} comments </a>
           </div>
-        <div class="col-4 text-end">
+        <div class="col-4 text-end pe-4">
           {{#if upvotes}}
           <button class="btn btn-sm selected-outline-purple mb-0 pe-2 upvote-btn" data-post-id="{{id}}" data-upvote-id="{{upvotes.[0].id}}" value="true">❤️ {{upvote_count}} coco-ros</button>
           {{else}}
@@ -34,3 +41,4 @@
 </div>
 {{/each}}
 </div>
+<script src="/js/vote.js"></script>
