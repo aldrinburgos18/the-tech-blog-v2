@@ -1,7 +1,8 @@
 const saveBtn = document.getElementById("save-post");
 const cancelBtn = document.getElementById("cancel-post");
 
-async function savePost() {
+async function savePost(e) {
+  e.preventDefault();
   const title = document.getElementById("post-title").value;
   const coconut = document.getElementById("post-content").value;
 
